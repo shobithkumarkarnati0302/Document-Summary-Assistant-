@@ -16,11 +16,28 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const MODEL_ID = process.env.GEMINI_MODEL || 'gemini-1.5-flash-latest';
 
 // Middleware
+const allowedOrigins = process.env.NODE_ENV === 'production' 
+  ? ['https://document-summary-assistant-frontend-red.vercel.app'] 
+  : ['http://localhost:5173', 'http://localhost:3000'];
+
+console.log('CORS allowed origins:', allowedOrigins);
+console.log('Environment:', process.env.NODE_ENV);
+
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? ['https://document-summary-assistant-frontend-red.vercel.app/'] 
-    : ['http://localhost:5173', 'http://localhost:3000'],
-  credentials: true
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      console.log('CORS blocked origin:', origin);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
