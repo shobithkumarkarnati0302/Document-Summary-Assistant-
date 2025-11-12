@@ -16,12 +16,22 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const MODEL_ID = process.env.GEMINI_MODEL || 'gemini-1.5-flash-latest';
 
 // Middleware
-const allowedOrigins = process.env.NODE_ENV === 'production' 
-  ? ['https://document-summary-assistant-frontend-red.vercel.app'] 
-  : ['http://localhost:5173', 'http://localhost:3000'];
+const isProduction = process.env.NODE_ENV === 'production' || process.env.RENDER;
+const allowedOrigins = isProduction
+  ? [
+      'https://document-summary-assistant-frontend-red.vercel.app',
+      'https://document-summary-assistant-frontend-red.vercel.app/'
+    ] 
+  : [
+      'http://localhost:5173', 
+      'http://localhost:3000',
+      'https://document-summary-assistant-frontend-red.vercel.app' // Allow in dev too
+    ];
 
 console.log('CORS allowed origins:', allowedOrigins);
 console.log('Environment:', process.env.NODE_ENV);
+console.log('Is Production:', isProduction);
+console.log('Render Service:', process.env.RENDER);
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -137,6 +147,16 @@ async function generateSummary(text, summaryLength = 'medium') {
 // API Routes
 app.get('/', (req, res) => {
     res.send('Welcome to Document Summary Assistant API');
+});
+
+// Test endpoint for CORS debugging
+app.get('/api/test', (req, res) => {
+    res.json({
+        message: 'CORS test successful!',
+        origin: req.headers.origin,
+        timestamp: new Date().toISOString(),
+        environment: process.env.NODE_ENV
+    });
 });
 
 app.post('/api/upload', upload.single('file'), async (req, res) => {
