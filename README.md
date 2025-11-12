@@ -67,41 +67,6 @@ npm install
 2. Create a new API key
 3. Add it to your `.env` file
 
-## 📤 Git Setup and Deployment
-
-### Initial Git Setup
-```bash
-# Navigate to project root
-cd DSA
-
-# Initialize Git repository
-git init
-
-# Add all files to staging
-git add .
-
-# Create initial commit
-git commit -m "Initial commit: Document Summary Assistant"
-```
-
-### Push to GitHub
-```bash
-# Create a new repository on GitHub first, then:
-
-# Add remote origin (replace with your repository URL)
-git remote add origin https://github.com/yourusername/document-summary-assistant.git
-
-# Push to GitHub
-git push -u origin main
-```
-
-### Alternative: Push to Existing Repository
-```bash
-# If you already have a repository:
-git remote add origin https://github.com/yourusername/your-repo-name.git
-git branch -M main
-git push -u origin main
-```
 
 ### Environment Security
 **Important:** Before pushing, ensure your `.env` file is not tracked:
@@ -121,6 +86,7 @@ git commit -m "Add .env to gitignore for security"
 - Use `.env.example` for environment variable templates
 - Consider using environment variables in production
 - Update README with your actual repository URL
+
 
 ## 🚀 Running the Application
 
@@ -197,20 +163,6 @@ DSA/
 └── start-frontend.bat        # Windows frontend start script
 ```
 
-## 🚀 Quick Start Scripts
-
-For Windows users, convenience scripts are provided:
-
-```bash
-# Install all dependencies
-./install-all.bat
-
-# Start backend server
-./start-backend.bat
-
-# Start frontend development server
-./start-frontend.bat
-```
 
 ## 🎨 UI Components
 
@@ -232,30 +184,6 @@ For Windows users, convenience scripts are provided:
 - Animated loading bars
 - Bouncing ball animation
 - Styled with styled-components
-
-## 🔍 Troubleshooting
-
-### Common Issues
-
-**Backend not starting:**
-- Check if port 4000 is available
-- Verify `.env` file exists with correct API key
-- Ensure all dependencies are installed
-
-**File upload fails:**
-- Check file size (max 10MB)
-- Verify file type is supported
-- Ensure backend server is running
-
-**Gemini API errors:**
-- Verify API key is valid and active
-- Check if you have sufficient API quota
-- Ensure model name is correct
-
-**Frontend not connecting to backend:**
-- Verify backend is running on port 4000
-- Check CORS configuration
-- Ensure API_URL in frontend matches backend URL
 
 ## 📝 Development
 
@@ -279,9 +207,7 @@ For Windows users, convenience scripts are provided:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 

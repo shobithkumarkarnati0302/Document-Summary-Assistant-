@@ -16,7 +16,12 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const MODEL_ID = process.env.GEMINI_MODEL || 'gemini-1.5-flash-latest';
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production' 
+    ? ['https://your-vercel-app.vercel.app'] 
+    : ['http://localhost:5173', 'http://localhost:3000'],
+  credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -114,13 +119,7 @@ async function generateSummary(text, summaryLength = 'medium') {
 
 // API Routes
 app.get('/', (req, res) => {
-    res.json({
-        message: 'Document Summary Assistant API',
-        version: '1.0.0',
-        endpoints: {
-            upload: 'POST /api/upload'
-        }
-    });
+    res.send('Welcome to Document Summary Assistant API');
 });
 
 app.post('/api/upload', upload.single('file'), async (req, res) => {

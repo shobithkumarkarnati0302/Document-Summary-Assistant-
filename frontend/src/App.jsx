@@ -5,7 +5,7 @@ import SummaryModal from './components/SummaryModal';
 import { FileText, Sparkles, AlertCircle } from 'lucide-react';
 import './App.css';
 
-const API_URL = 'http://localhost:4000';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
