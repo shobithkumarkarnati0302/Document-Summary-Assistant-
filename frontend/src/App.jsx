@@ -23,11 +23,7 @@ function App() {
     formData.append('summaryLength', summaryLength);
 
     try {
-      const uploadUrl = `${API_URL}/api/upload`;
-      console.log('Making request to:', uploadUrl);
-      console.log('API_URL:', API_URL);
-      
-      const response = await axios.post(uploadUrl, formData, {
+      const response = await axios.post(`${API_URL}/api/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -61,19 +57,6 @@ function App() {
     setShowModal(false);
   };
 
-  // Test CORS function - remove after debugging
-  const testCORS = async () => {
-    try {
-      console.log('Testing CORS with:', `${API_URL}/api/test`);
-      const response = await fetch(`${API_URL}/api/test`);
-      const data = await response.json();
-      console.log('CORS test successful:', data);
-      alert('CORS test successful! Check console for details.');
-    } catch (error) {
-      console.error('CORS test failed:', error);
-      alert('CORS test failed! Check console for details.');
-    }
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 flex flex-col">
@@ -111,14 +94,6 @@ function App() {
 
             {/* File Uploader */}
             <FileUploader onUpload={handleUpload} isLoading={isLoading} />
-
-            {/* Temporary CORS Test Button - Remove after debugging */}
-            <button 
-              onClick={testCORS}
-              className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
-            >
-              Test CORS Connection
-            </button>
 
             {/* Error Message */}
             {error && (
