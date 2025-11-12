@@ -5,7 +5,8 @@ import SummaryModal from './components/SummaryModal';
 import { FileText, Sparkles, AlertCircle } from 'lucide-react';
 import './App.css';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+// Remove trailing slash if present to prevent double slashes
+const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:4000').replace(/\/$/, '');
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,7 +23,11 @@ function App() {
     formData.append('summaryLength', summaryLength);
 
     try {
-      const response = await axios.post(`${API_URL}/api/upload`, formData, {
+      const uploadUrl = `${API_URL}/api/upload`;
+      console.log('Making request to:', uploadUrl);
+      console.log('API_URL:', API_URL);
+      
+      const response = await axios.post(uploadUrl, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
