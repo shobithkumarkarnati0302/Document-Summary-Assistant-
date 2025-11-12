@@ -18,7 +18,7 @@ const MODEL_ID = process.env.GEMINI_MODEL || 'gemini-1.5-flash-latest';
 // Middleware
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://your-vercel-app.vercel.app'] 
+    ? ['https://document-summary-assistant-frontend-red.vercel.app/'] 
     : ['http://localhost:5173', 'http://localhost:3000'],
   credentials: true
 }));
@@ -207,5 +207,4 @@ app.use((error, req, res, next) => {
 
 app.listen(port, () => {
     console.log(`Document Summary Assistant API running on http://localhost:${port}`);
-    // console.log(`Upload endpoint: POST http://localhost:${port}/api/upload`);
 });
